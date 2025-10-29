@@ -21,8 +21,9 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
-      width: 350,
+      width: screenWidth,
 
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.only(bottom: 16),
@@ -42,12 +43,13 @@ class TaskCard extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
+                    fontFamily: 'Alegreya',
                   ),
                 ),
                 SizedBox(height: 8),
                 Text(
                   description,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                  style: TextStyle(fontSize: 14, color: Colors.black54,fontFamily: 'AlegreyaSans',),
                 ),
                 SizedBox(height: 16),
                 Row(
@@ -58,6 +60,7 @@ class TaskCard extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: buttonColor,
+                        fontFamily: 'AlegreyaSans',
                       ),
                     ),
                     SizedBox(width: 8),
@@ -99,7 +102,7 @@ class TaskCards extends StatelessWidget {
       'buttonText': '06:00 PM',
       'backgroundColor': Color(0xFFfbe2cc),
       'buttonColor': Color(0xFFFF9800),
-      'svgAsset': 'lib/assets/images/Meditation.svg',
+      'svgAsset': 'lib/assets/images/Flower.svg',
     },
     {
       'title': 'Meditation',
@@ -108,7 +111,7 @@ class TaskCards extends StatelessWidget {
       'buttonText': '06:00 PM',
       'backgroundColor': Color(0xFFfbe2cc),
       'buttonColor': Color(0xFFFF9800),
-      'svgAsset': 'lib/assets/images/Meditation.svg',
+      'svgAsset': 'lib/assets/images/Flower.svg',
     },
     {
       'title': 'Yoga Session',
@@ -117,7 +120,7 @@ class TaskCards extends StatelessWidget {
       'buttonText': '07:30 AM',
       'backgroundColor': Color(0xFFE8F5E8),
       'buttonColor': Color(0xFF4CAF50),
-      'svgAsset': 'lib/assets/images/Meditation.svg',
+      'svgAsset': 'lib/assets/images/Flower.svg',
     },
     {
       'title': 'Breathing Exercise',
@@ -133,25 +136,18 @@ class TaskCards extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [
-          ...tasks
-              .map(
-                (task) => TaskCard(
-                  title: task['title'],
-                  description: task['description'],
-                  buttonText: task['buttonText'],
-                  backgroundColor: task['backgroundColor'],
-                  buttonColor: task['buttonColor'],
-                  icon: SvgPicture.asset(
-                    task['svgAsset'],
-                    width: 60,
-                    height: 60,
-                  ),
-                ),
-              )
-              .toList(),
-          SizedBox(height: 100),
-        ],
+        children: tasks
+            .map(
+              (task) => TaskCard(
+                title: task['title'],
+                description: task['description'],
+                buttonText: task['buttonText'],
+                backgroundColor: task['backgroundColor'],
+                buttonColor: task['buttonColor'],
+                icon: SvgPicture.asset(task['svgAsset'], width: 60, height: 60),
+              ),
+            )
+            .toList(),
       ),
     );
   }

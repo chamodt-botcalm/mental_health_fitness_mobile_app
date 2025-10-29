@@ -6,7 +6,8 @@ class IconLabelComponent extends StatelessWidget {
   final Color backgroundColor;
   final String label;
 
-  IconLabelComponent({
+  const IconLabelComponent({
+    super.key,
     required this.svgAsset,
     required this.backgroundColor,
     required this.label,
@@ -15,7 +16,6 @@ class IconLabelComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           width: 69,
@@ -29,12 +29,22 @@ class IconLabelComponent extends StatelessWidget {
               svgAsset,
               width: 39,
               height: 39,
-              colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
-        SizedBox(height: 8),
-        Text(label, style: TextStyle(fontSize: 14, color: Colors.black87)),
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.black87,
+            fontFamily: 'AlegreyaSans',
+          ),
+        ),
       ],
     );
   }
@@ -45,31 +55,119 @@ class Feeling extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 33, // 👈 vertical gap (if it wraps)
-      alignment: WrapAlignment.center,
-      children: [
-        IconLabelComponent(
-          svgAsset: 'lib/assets/images/Happy.svg',
-          backgroundColor: Color(0xFFEF5DA8),
-          label: 'Happy',
-        ),
-        IconLabelComponent(
-          svgAsset: 'lib/assets/images/Calm.svg',
-          backgroundColor: Color(0xFFAEAFF7),
-          label: 'Calm',
-        ),
-        IconLabelComponent(
-          svgAsset: 'lib/assets/images/Relax.svg',
-          backgroundColor: Color(0xFFF09E54),
-          label: 'Relax',
-        ),
-        IconLabelComponent(
-          svgAsset: 'lib/assets/images/Focus.svg',
-          backgroundColor: Color(0xFFA0E3E2),
-          label: 'Focus',
-        ),
-      ],
+    // screen width
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return SizedBox(
+      height: 120, // height for icons + labels
+      width: screenWidth, // main width
+      child: Stack(
+        clipBehavior: Clip.none, // 👈 allow overflow beyond screen
+        children: [
+          Positioned(
+            left: 0,
+            right: -40, // 👈 extend 40px beyond right side
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              child: Row(
+                children: const [
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Laugh.svg',
+                    backgroundColor: Color(0xFFEF5DA8),
+                    label: 'Happy',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Calm.svg',
+                    backgroundColor: Color(0xFFAEAFF7),
+                    label: 'Calm',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Relax.svg',
+                    backgroundColor: Color(0xFFF09E54),
+                    label: 'Relax',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Meditation.svg',
+                    backgroundColor: Color(0xFFA0E3E2),
+                    label: 'Focus',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Laugh.svg',
+                    backgroundColor: Color(0xFFEF5DA8),
+                    label: 'Happy',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Calm.svg',
+                    backgroundColor: Color(0xFFAEAFF7),
+                    label: 'Calm',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Relax.svg',
+                    backgroundColor: Color(0xFFF09E54),
+                    label: 'Relax',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Meditation.svg',
+                    backgroundColor: Color(0xFFA0E3E2),
+                    label: 'Focus',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Laugh.svg',
+                    backgroundColor: Color(0xFFEF5DA8),
+                    label: 'Happy',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Calm.svg',
+                    backgroundColor: Color(0xFFAEAFF7),
+                    label: 'Calm',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Relax.svg',
+                    backgroundColor: Color(0xFFF09E54),
+                    label: 'Relax',
+                  ),
+                  SizedBox(width: 33),
+                  IconLabelComponent(
+                    svgAsset: 'lib/assets/images/Meditation.svg',
+                    backgroundColor: Color(0xFFA0E3E2),
+                    label: 'Focus',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
+}
+
+class FeelingScreen extends StatelessWidget {
+  const FeelingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(title: const Text('Feeling Example')),
+      body: const Padding(padding: EdgeInsets.all(16.0), child: Feeling()),
+    );
+  }
+}
+
+void main() {
+  runApp(
+    const MaterialApp(home: FeelingScreen(), debugShowCheckedModeBanner: false),
+  );
 }
