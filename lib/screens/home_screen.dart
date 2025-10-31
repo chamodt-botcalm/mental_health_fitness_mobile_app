@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'main_screen.dart';
+import 'main_navigation_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -105,7 +105,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const MainScreen()),
+                        MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
                       );
               },
               style: ElevatedButton.styleFrom(

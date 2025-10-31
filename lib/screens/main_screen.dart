@@ -10,18 +10,17 @@ import 'package:remix_ic/remix_ic.dart';
 import 'package:simple_icons/simple_icons.dart';
 import '../components/feeling.dart';
 import '../components/task_card.dart';
-import 'sound_screen.dart';
-import 'home_screen.dart';
+import 'main_navigation_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final GlobalKey<ScaffoldState>? scaffoldKey;
+  const MainScreen({super.key, this.scaffoldKey});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,74 +62,26 @@ class _MainScreenState extends State<MainScreen> {
       isLandscape,
     );
 
-    return Scaffold(
-      body: SafeArea(
-        child: isLandscape
-            ? Column(
-                children: [
-                  _buildHeader(scaleFactor, heightScaleFactor),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: _buildContent(
-                        scaleFactor,
-                        heightScaleFactor,
-                        textScale,
-                        screenWidth,
-                        isLandscape,
-                        includeHeader: false,
-                      ),
+    return SafeArea(
+      child: isLandscape
+          ? Column(
+              children: [
+                _buildHeader(scaleFactor, heightScaleFactor),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: _buildContent(
+                      scaleFactor,
+                      heightScaleFactor,
+                      textScale,
+                      screenWidth,
+                      isLandscape,
+                      includeHeader: false,
                     ),
                   ),
-                ],
-              )
-            : content,
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFFAEAFF7)),
-              child: Text(
-                'Menu',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SettingsScreen()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        height: bottomNavigationHeight,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildNavItem(Remix.home4Fill, 0),
-            _buildNavItem(MaterialCommunityIcons.music_circle, 1),
-            _buildNavItem(Remix.group2Fill, 2),
-            _buildNavItem(Remix.settings3Fill, 3),
-          ],
-        ),
-      ),
+                ),
+              ],
+            )
+          : content,
     );
   }
 
@@ -263,6 +214,8 @@ class _MainScreenState extends State<MainScreen> {
                     child: TaskCards(),
                   ),
                   SizedBox(height: 20 * heightScaleFactor),
+                            
+
                 ],
               ),
             )
@@ -303,7 +256,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     SizedBox(height: 20 * heightScaleFactor),
                     Feeling(),
-                    SizedBox(height: 40 * heightScaleFactor),
+                    SizedBox(height: 15 * heightScaleFactor),
                     Text(
                       "Today's Task",
                       style: TextStyle(
@@ -328,51 +281,7 @@ class _MainScreenState extends State<MainScreen> {
     return Column(
       mainAxisSize: isLandscape ? MainAxisSize.min : MainAxisSize.max,
       children: children,
-    );
-  }
-
-  Widget _buildNavItem(IconData icon, int index) {
-    bool isSelected = _selectedIndex == index;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
-
-        if (index == 0) {
-          // Home - stay on current screen
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => MainScreen()),
-          );
-        } else if (index == 1) {
-          // Sound screen navigation
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => SoundScreen()),
-          );
-        }
-      },
-      child: Container(
-        padding: EdgeInsets.all(12),
-        child: Icon(
-          icon,
-          size: 28,
-          color: isSelected ? Colors.black : Colors.grey,
-        ),
-      ),
-    );
-  }
-}
-
-// Example SettingsScreen
-class SettingsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
-      body: Center(child: Text('Settings Page')),
+      
     );
   }
 }

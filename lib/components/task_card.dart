@@ -40,7 +40,7 @@ class TaskCard extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
                     fontFamily: 'Alegreya',
@@ -49,7 +49,7 @@ class TaskCard extends StatelessWidget {
                 SizedBox(height: 8),
                 Text(
                   description,
-                  style: TextStyle(fontSize: 14, color: Colors.black54,fontFamily: 'AlegreyaSans',),
+                  style: TextStyle(fontSize: 12, color: Colors.black54,fontFamily: 'AlegreyaSans',fontWeight: FontWeight.w300),
                 ),
                 SizedBox(height: 16),
                 Row(
@@ -144,7 +144,7 @@ class TaskCards extends StatelessWidget {
                 buttonText: task['buttonText'],
                 backgroundColor: task['backgroundColor'],
                 buttonColor: task['buttonColor'],
-                icon: SvgPicture.asset(task['svgAsset'], width: 60, height: 60),
+                icon: SvgPicture.asset(task['svgAsset'], width: 80, height: 80),
               ),
             )
             .toList(),
